@@ -20,14 +20,14 @@ function sss_shortcode_handler($atts, $content = NULL) {
         'didascaly' => '',
         'class' => null
     ), $atts, 'image');
-    
+
     if(!$a['id']) {
         return '';
     }
-    
+
     // Extract link to boolean
     $display_link = filter_var($a['link'], FILTER_VALIDATE_BOOLEAN);
-    
+
     // Auto-set alt and title attributes with didascaly, if set
     if(!$a['alt'] && $a['didascaly']) {
         $a['alt'] = $a['didascaly'];
@@ -35,7 +35,7 @@ function sss_shortcode_handler($atts, $content = NULL) {
     if(!$a['title'] && $a['didascaly']) {
         $a['title'] = $a['didascaly'];
     }
-    
+
     $img_data = wp_get_attachment_image_src($a['id'], $a['size'], false);
     if($img_data == false) {
         return '';
@@ -46,7 +46,7 @@ function sss_shortcode_handler($atts, $content = NULL) {
         $ret .= ' ' . $a['class'];
     }
     $ret .= '">';
-    
+
     if($display_link) {
         $ret .= '<a href="' . wp_get_attachment_url($a['id']) . '"';
         if($a['title']) {
@@ -60,18 +60,37 @@ function sss_shortcode_handler($atts, $content = NULL) {
         $ret .= 'alt="' . $a['alt'] . '"';
     }
     $ret .= '/>';
-    
+
     if($display_link) {
         $ret .= '</a>';
     }
-    
+
     if($a['didascaly']) {
         $ret .= '<div class="didascaly">' . $a['didascaly'] . '</div>';
     }
-    
+
     $ret .= '</div>';
 
     return $ret;
 }
 
 add_shortcode('image', 'sss_shortcode_handler');
+
+/* ADMIN PANEL */
+
+add_action('media_buttons', 'sss_add_media_button', 12);
+
+function sss_add_media_button() {
+    ?>
+    <button type="button" id="sss-insert-image-button" class="button thickbox add_media" data-editor="content">
+        <span class="wp-media-buttons-icon"></span>
+        <?php echo _('Add'); ?> [image]
+    </button>
+    <?php
+}
+
+add_action('wp_enqueue_media', 'sss_add_media_button_include_js');
+
+function sss_add_media_button_include_js() {
+    wp_enqueue_script('media_button', plugins_url('simplestupidshortcode-admin.js', __FILE__), array('jquery'), '1.0', true);
+}

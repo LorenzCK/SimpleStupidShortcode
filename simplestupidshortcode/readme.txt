@@ -20,6 +20,8 @@ dynamically generates a correct `` tag, with responsive `srcset` support.
 The shortcode supports the following parameters:
 * `id`: the Wordpress ID of the attachment to include,
 * `size`: size of the image to include (can be any standard size such as `thumbnail` or `full`, or any custom image size),
-* `alt`: alternate description to include,
+* `alt`: alternate description to include in the <img> tag,
 * `title`: image title to use in (optional) link,
-* `link`: if set to true will also generate a link to the attachment.
+* `link`: if set to true will also generate a link to the attachment,
+* `didascaly`: text to add as a didascaly,
+* `class`: additional HTML/CSS classes to add to the root element.
