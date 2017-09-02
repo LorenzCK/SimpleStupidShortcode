@@ -16,11 +16,24 @@ function sss_shortcode_handler($atts, $content = NULL) {
         'size' => 'medium',
         'alt' => '',
         'title' => '',
-        'link' => false
+        'link' => true,
+        'didascaly' => '',
+        'class' => null
     ), $atts, 'image');
     
     if(!$a['id']) {
         return '';
+    }
+    
+    // Extract link to boolean
+    $display_link = filter_var($a['link'], FILTER_VALIDATE_BOOLEAN);
+    
+    // Auto-set alt and title attributes with didascaly, if set
+    if(!$a['alt'] && $a['didascaly']) {
+        $a['alt'] = $a['didascaly'];
+    }
+    if(!$a['title'] && $a['didascaly']) {
+        $a['title'] = $a['didascaly'];
     }
     
     $img_data = wp_get_attachment_image_src($a['id'], $a['size'], false);
@@ -28,14 +41,35 @@ function sss_shortcode_handler($atts, $content = NULL) {
         return '';
     }
 
-    $ret = '';
-    if($a['link']) {
-        $ret .= '<a href="' . wp_get_attachment_url($a['id']) . '">';
+    $ret = '<div class="picture wp-image-' . $a['id'] . ' size-' . $a['size'];
+    if($a['class']) {
+        $ret .= ' ' . $a['class'];
     }
-    $ret .= '<img src="' . $img_data[0] . '" width="' . $img_data[1] . '" height="' . $img_data[2] . '" alt="" srcset="' . wp_get_attachment_image_srcset($a['id'], $a['size']) . '" class="size-' . $a['size'] . ' wp-image-' . $a['id'] . '" />';
-    if($a['link']) {
+    $ret .= '">';
+    
+    if($display_link) {
+        $ret .= '<a href="' . wp_get_attachment_url($a['id']) . '"';
+        if($a['title']) {
+            $ret .= ' title="' . $a['title'] . '"';
+        }
+        $ret .= '>';
+    }
+
+    $ret .= '<img src="' . $img_data[0] . '" width="' . $img_data[1] . '" height="' . $img_data[2] . '" srcset="' . wp_get_attachment_image_srcset($a['id'], $a['size']) . '"';
+    if($a['alt']) {
+        $ret .= 'alt="' . $a['alt'] . '"';
+    }
+    $ret .= '/>';
+    
+    if($display_link) {
         $ret .= '</a>';
     }
+    
+    if($a['didascaly']) {
+        $ret .= '<div class="didascaly">' . $a['didascaly'] . '</div>';
+    }
+    
+    $ret .= '</div>';
 
     return $ret;
 }
