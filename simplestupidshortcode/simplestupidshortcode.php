@@ -8,8 +8,6 @@ Version: 1.2.0
 Author URI: https://github.com/LorenzCK
 */
 
-// Requires Wordpress 4.4 for wp_get_attachment_image_srcset()
-
 function sss_shortcode_handler($atts, $content = NULL) {
     $a = shortcode_atts(array(
         'id' => '',
@@ -55,7 +53,12 @@ function sss_shortcode_handler($atts, $content = NULL) {
         $ret .= '>';
     }
 
-    $ret .= '<img src="' . $img_data[0] . '" width="' . $img_data[1] . '" height="' . $img_data[2] . '" srcset="' . wp_get_attachment_image_srcset($a['id'], $a['size']) . '"';
+    $ret .= '<img src="' . $img_data[0] . '" width="' . $img_data[1] . '" height="' . $img_data[2] . '"';
+
+    if(function_exists('wp_get_attachment_image_srcset')) {
+        $ret .= 'srcset="' . wp_get_attachment_image_srcset($a['id'], $a['size']) . '"';
+    }
+
     if($a['alt']) {
         $ret .= 'alt="' . $a['alt'] . '"';
     }
