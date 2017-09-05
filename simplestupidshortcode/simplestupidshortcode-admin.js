@@ -6,11 +6,11 @@ jQuery(function($) {
 
         if(picker_frame == null) {
             picker_frame = wp.media({
-                title: 'Insert an image',
+                title: ssst.title_insert,
                 library: {type: 'image'},
                 multiple: false,
                 button: {
-                    text: 'Insert'
+                    text: ssst.label_insert
                 }
             });
 

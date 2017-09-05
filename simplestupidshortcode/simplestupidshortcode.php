@@ -87,7 +87,7 @@ function sss_add_media_button() {
     ?>
     <button type="button" id="sss-insert-image-button" class="button thickbox add_media" data-editor="content">
         <span class="wp-media-buttons-icon"></span>
-        <?php echo _('Add'); ?> [image]
+        <?php _e('Add [image]', 'simplestupidshortcode'); ?>
     </button>
     <?php
 }
@@ -96,4 +96,8 @@ add_action('wp_enqueue_media', 'sss_add_media_button_include_js');
 
 function sss_add_media_button_include_js() {
     wp_enqueue_script('media_button', plugins_url('simplestupidshortcode-admin.js', __FILE__), array('jquery'), '1.0', true);
+    wp_localize_script('media_button', 'ssst', array(
+        'title_insert' => __('Pick a picture', 'simplestupidshortcode'),
+        'label_insert' => __('Insert', 'simplestupidshortcode')
+    ));
 }

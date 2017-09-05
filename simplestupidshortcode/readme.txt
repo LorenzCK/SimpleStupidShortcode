@@ -1,8 +1,8 @@
 === Simple Stupid Shortcode ===
 Contributors: lorenzck
 Tags: shortcode, image, picture, embed, media
-Requires at least: 4.4
-Tested up to: 4.7.5
+Requires at least: 4.6
+Tested up to: 4.8.1
 Stable tag: trunk
 License: MIT
 License URI: https://github.com/LorenzCK/SimpleStupidShortcode/blob/master/LICENSE
