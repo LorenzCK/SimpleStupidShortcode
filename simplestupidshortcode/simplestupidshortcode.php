@@ -58,6 +58,13 @@ function sss_shortcode_handler($atts, $content = NULL) {
         $a['title'] = $a['didascaly'];
     }
 
+    // Auto-set alt with media metadata
+    if(!$a['alt']) {
+        // Alt-text extraction from wp_get_attachment_image()
+        // https://core.trac.wordpress.org/browser/tags/4.8/src/wp-includes/media.php#L885
+        $a['alt'] = trim(strip_tags(get_post_meta($a['id'], '_wp_attachment_image_alt', true)));
+    }
+
     $img_data = wp_get_attachment_image_src($a['id'], $a['size'], false);
     if($img_data == false) {
         return '';
