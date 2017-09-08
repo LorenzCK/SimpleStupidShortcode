@@ -111,6 +111,85 @@ function sss_image_shortcode_handler($atts, $content = null) {
 }
 add_shortcode('image', 'sss_image_shortcode_handler');
 
+/* [page] & [link] SHORTCODES */
+
+function sss_core_get_target($href, $type) {
+    if(is_int($href)) {
+        // Resolve via ID
+        return get_post($href);
+    }
+    else if(strpos($href, '/') !== false) {
+        // Must be a path
+        return get_page_by_path($href, OBJECT, $type);
+    }
+    else {
+        // Default to search by slug
+        $pages = get_posts(array(
+            'name'        => $href,
+            'post_type'   => $type,
+            'numberposts' => 1
+        ));
+
+        if($pages && count($pages) >= 1) {
+            return $pages[0];
+        }
+        else {
+            return null;
+        }
+    }
+}
+
+function sss_core_link_shortcode($atts, $content = null) {
+    if(!$atts['href']) {
+        return $content;
+    }
+
+    $target = sss_core_get_target($atts['href'], $atts['type']);
+    if(!$target) {
+        return $content;
+    }
+
+    // Auto set title to target title and content
+    if(!$atts['title']) {
+        $atts['title'] = get_the_title($target);
+    }
+    if(!$content) {
+        $content = get_the_title($target);
+    }
+
+    $html = '<a href="' . esc_url(get_permalink($target)) . '" title="' . esc_attr($atts['title']) . '" class="link-' . $target->ID . ' link-' . $target->post_type . ' link-' . $target->post_status . ' link-author-' . $target->post_author;
+    if($atts['class']) {
+        $html .= ' ' . esc_attr($atts['class']);
+    }
+    $html .= '">' . $content . '</a>';
+
+    return $html;
+}
+
+function sss_page_shortcode_handler($atts, $content = null) {
+    $a = shortcode_atts(array(
+        'href' => '',
+        'title' => '',
+        'class' => null
+    ), $atts, 'page');
+
+    $a['type'] = 'page';
+
+    return sss_core_link_shortcode($a, $content);
+}
+add_shortcode('page', 'sss_page_shortcode_handler');
+
+function sss_link_shortcode_handler($atts, $content = null) {
+    $a = shortcode_atts(array(
+        'href' => '',
+        'title' => '',
+        'class' => null,
+        'type' => 'post'
+    ), $atts, 'link');
+
+    return sss_core_link_shortcode($a, $content);
+}
+add_shortcode('link', 'sss_link_shortcode_handler');
 
 /* ADMIN PANEL */
 
