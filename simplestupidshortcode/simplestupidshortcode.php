@@ -32,7 +32,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-function sss_shortcode_handler($atts, $content = NULL) {
+/* [image] SHORTCODE */
+
+function sss_image_shortcode_handler($atts, $content = null) {
     $a = shortcode_atts(array(
         'id' => '',
         'size' => 'medium',
@@ -72,14 +74,14 @@ function sss_shortcode_handler($atts, $content = NULL) {
 
     $ret = '<div class="picture wp-image-' . $a['id'] . ' size-' . $a['size'];
     if($a['class']) {
-        $ret .= ' ' . $a['class'];
+        $ret .= ' ' . esc_attr($a['class']);
     }
     $ret .= '">';
 
     if($display_link) {
         $ret .= '<a href="' . wp_get_attachment_url($a['id']) . '"';
         if($a['title']) {
-            $ret .= ' title="' . $a['title'] . '"';
+            $ret .= ' title="' . esc_attr($a['title']) . '"';
         }
         $ret .= '>';
     }
@@ -91,7 +93,7 @@ function sss_shortcode_handler($atts, $content = NULL) {
     }
 
     if($a['alt']) {
-        $ret .= 'alt="' . $a['alt'] . '"';
+        $ret .= 'alt="' . esc_attr($a['alt']) . '"';
     }
     $ret .= '/>';
 
@@ -107,8 +109,8 @@ function sss_shortcode_handler($atts, $content = NULL) {
 
     return $ret;
 }
+add_shortcode('image', 'sss_image_shortcode_handler');
 
-add_shortcode('image', 'sss_shortcode_handler');
 
 /* ADMIN PANEL */
 
