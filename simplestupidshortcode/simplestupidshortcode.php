@@ -50,7 +50,8 @@ function sss_image_shortcode_handler($atts, $content = null) {
     }
 
     // Extract link to boolean
-    $display_link = filter_var($a['link'], FILTER_VALIDATE_BOOLEAN);
+    $display_link = filter_var($a['link'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+    $target_link = ($display_link === null) ? $a['link'] : wp_get_attachment_url($a['id']);
 
     // Auto-set alt and title attributes with didascaly, if set
     if(!$a['alt'] && $a['didascaly']) {
@@ -78,8 +79,9 @@ function sss_image_shortcode_handler($atts, $content = null) {
     }
     $ret .= '">';
 
-    if($display_link) {
-        $ret .= '<a href="' . wp_get_attachment_url($a['id']) . '"';
+    // Display links if 'link' is not boolean (URL) or if set to true
+    if($display_link === null || $display_link) {
+        $ret .= '<a href="' . esc_attr($target_link) . '"';
         if($a['title']) {
             $ret .= ' title="' . esc_attr($a['title']) . '"';
         }
@@ -97,7 +99,7 @@ function sss_image_shortcode_handler($atts, $content = null) {
     }
     $ret .= '/>';
 
-    if($display_link) {
+    if($display_link === null || $display_link) {
         $ret .= '</a>';
     }
 

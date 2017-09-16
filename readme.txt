@@ -46,12 +46,12 @@ This generates the following HTML block, which can be easily styled with CSS:
 
 The *shortcode* supports the following parameters:
 
-* `id`: the Wordpress ID of the attachment to include,
-* `size`: size of the image to include (can be any standard size such as `thumbnail` or `full`, or any custom image size),
-* `alt`: alternate description to include in the `&lt;img&gt;` tag,
-* `title`: image title to use in (optional) link,
-* `link`: if set to true will also generate a link to the attachment,
-* `didascaly`: text to add as a didascaly,
+* `id`: the Wordpress ID of the attachment to include;
+* `size`: size of the image to include (can be any standard size such as `thumbnail` or `full`, or any custom image size);
+* `alt`: alternate description to include in the `&lt;img&gt;` tag;
+* `title`: image title to use in (optional) link;
+* `link`: if set to `true`, `1`, `yes`, or an equivalent value, a link to the full-resolution attachment will be generated, otherwise a fully specified target URL can be specified;
+* `didascaly`: text to add as a didascaly;
 * `class`: additional HTML/CSS classes to add to the root element.
 
 = Page and link shortcodes =
@@ -62,9 +62,9 @@ Thus, `[link href="123"]…[/link]`, `[link href="slug-of-post"]…[/link]`, and
 
 These *shortcodes* are “enclosing” (they wrap the content of the link, just like HTML tags) and they support the following parameters:
 
-* `href`: the ID, *slug*, or *path* of the target post or page,
-* `title`: the title to use in the link, if not set the target post’s title will be used,
-* `class`: additional HTML/CSS classes to add to the link,
+* `href`: the ID, *slug*, or *path* of the target post or page;
+* `title`: the title to use in the link, if not set the target post’s title will be used;
+* `class`: additional HTML/CSS classes to add to the link;
 * `type`: type of the target post (defaults to `page` for `[page]` and `post` for `[link]`).
 
 If no link content to be enclosed is provided, the posts’s title is automatically used as link text.
