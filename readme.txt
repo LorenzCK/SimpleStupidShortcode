@@ -75,6 +75,9 @@ If no link content to be enclosed is provided, the posts’s title is automatica
 
 == Changelog ==
 
+= 1.5 =
+* Add support for URLs in `link` attributes for [image] shortcodes.
+
 = 1.4 =
 * Add [page] and [link] shortcodes.
 
