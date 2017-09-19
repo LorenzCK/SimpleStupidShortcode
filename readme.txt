@@ -7,7 +7,7 @@ Stable tag: trunk
 License: MIT
 License URI: https://github.com/LorenzCK/SimpleStupidShortcode/blob/master/LICENSE
 
-The simplest and most flexible way to embed images or generate links in Wordpress. Shortcodes to finally ditch all absolute paths and fixed sizes.
+The simplest and most flexible way to embed images or put internal links in Wordpress. Shortcodes to finally ditch all absolute paths and fixed sizes.
 
 == Description ==
 

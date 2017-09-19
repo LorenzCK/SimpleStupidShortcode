@@ -2,7 +2,7 @@
 /*
 Plugin Name: Simple Stupid Shortcode
 Plugin URI: https://github.com/LorenzCK/SimpleStupidShortcode
-Description: The simplest and most flexible way to embed images into Wordpress posts.
+Description: The simplest and most flexible way to embed images or put links into Wordpress posts.
 Author: Lorenz Cuno Klopfenstein
 Version: 1.5.0
 Author URI: https://github.com/LorenzCK
