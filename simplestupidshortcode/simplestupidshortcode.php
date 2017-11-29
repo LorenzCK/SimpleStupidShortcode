@@ -42,7 +42,9 @@ function sss_image_shortcode_handler($atts, $content = null) {
         'title' => '',
         'link' => true,
         'didascaly' => '',
-        'class' => null
+        'class' => null,
+        'atts' => null,
+        'imgatts' => null
     ), $atts, 'image');
 
     if(!$a['id']) {
@@ -77,6 +79,9 @@ function sss_image_shortcode_handler($atts, $content = null) {
     if($a['class']) {
         $ret .= ' ' . esc_attr($a['class']);
     }
+    if($a['atts']) {
+        $ret .= ' ' . $a['atts'];
+    }
     $ret .= '">';
 
     // Display links if 'link' is not boolean (URL) or if set to true
@@ -96,6 +101,9 @@ function sss_image_shortcode_handler($atts, $content = null) {
 
     if($a['alt']) {
         $ret .= 'alt="' . esc_attr($a['alt']) . '"';
+    }
+    if($a['imgatts']) {
+        $ret .= ' ' . $a['imgatts'];
     }
     $ret .= '/>';
 

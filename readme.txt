@@ -45,7 +45,7 @@ This generates the following HTML block, which can be easily styled with some cu
 </div>
 `
 
-The *shortcode* supports the following parameters:
+The `[image]` *shortcode* supports the following parameters:
 
 * `id`: the Wordpress ID of the attachment to include;
 * `size`: size of the image to include (can be any standard size such as `thumbnail`, `medium`, `full`, or any custom image size);
@@ -54,6 +54,8 @@ The *shortcode* supports the following parameters:
 * `link`: if set to `true`, `1`, `yes`, or an equivalent value, a link to the full-resolution attachment will be generated, otherwise a fully specified target URL can be specified;
 * `didascaly`: text to add as a didascaly;
 * `class`: additional HTML/CSS classes to add to the root element.
+* `atts`: additional HTML attributes to add to the wrapping `<div>` tag.
+* `imgatts`: additional HTML attributes to add to the internal `<img>` tag of the image.
 
 = Page and link shortcodes =
 
@@ -76,8 +78,11 @@ If no link content to be enclosed is provided, the posts’s title is automatica
 
 == Changelog ==
 
+= 1.5.1 =
+* Add support for `atts` and `imgatts` attributes for `[image]` shortcodes.
+
 = 1.5 =
-* Add support for URLs in `link` attributes for [image] shortcodes.
+* Add support for URLs in `link` attributes for `[image]` shortcodes.
 
 = 1.4 =
 * Add [page] and [link] shortcodes.
